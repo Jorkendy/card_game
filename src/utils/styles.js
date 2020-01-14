@@ -19,3 +19,7 @@ export const Container = styled.div`
     flex-direction: column;
   }
 `;
+
+export const Section = styled.div`
+  margin-bottom: 15px;
+`;

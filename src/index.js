@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import 'antd/dist/antd.css';
+import "antd/dist/antd.css";
 
 import "./index.css";
-import App from "./App";
+import App from "./containers/App.container";
 import * as serviceWorker from "./serviceWorker";
 import store from "./store";
 

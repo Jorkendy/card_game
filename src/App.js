@@ -1,17 +1,36 @@
 import React, { useState } from "react";
 
-import { Container, Section } from "./utils";
+import { Container, Section, Levels } from "./utils";
 import Components from "./components";
+import ComponentsContainer from "./containers";
 
-const { Action, Result, Timer, Content } = Components;
+const { Action, Result, Timer } = Components;
+const { Content } = ComponentsContainer;
 
-const App = () => {
+const App = ({ onStart }) => {
   const [level, setLevel] = useState(undefined);
+  const [size, setSize] = useState(1);
+
+  const _onLevelChange = newLevel => {
+    setLevel(newLevel);
+  };
+
+  const _onStart = () => {
+    const selectedLevel = Levels.find(item => +item.id === +level);
+    if (selectedLevel) {
+      onStart(selectedLevel.size);
+      setSize(selectedLevel.size)
+    }
+  };
 
   return (
     <Container>
       <Section>
-        <Action level={level} setLevel={setLevel} />
+        <Action
+          level={level}
+          onLevelChange={_onLevelChange}
+          onStart={_onStart}
+        />
       </Section>
 
       <Section>
@@ -23,7 +42,7 @@ const App = () => {
       </Section>
 
       <Section>
-        <Content />
+        <Content size={size} />
       </Section>
     </Container>
   );

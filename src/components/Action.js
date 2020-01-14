@@ -1,32 +1,45 @@
-import React from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
 import { Select, Button } from "antd";
+import PropTypes from "prop-types";
+
+import { Levels } from "../utils";
 
 const { Option } = Select;
 
-const Action = ({ level, setLevel }) => {
-  const _onLevelChange = newLevel => {
-    setLevel(newLevel);
-  };
-
+const Action = ({ level, onLevelChange, onStart }) => {
   return (
     <>
       <CustomSelect
         value={level}
         style={{ width: 120 }}
         placeholder="Select level"
-        onChange={_onLevelChange}
+        onChange={onLevelChange}
       >
-        <Option value="1">Easy</Option>
-        <Option value="2">Normal</Option>
-        <Option value="3">Hard</Option>
+        {Levels.map(item => (
+          <Option value={item.id} key={item.id}>
+            {item.name}
+          </Option>
+        ))}
       </CustomSelect>
-      <Button>Start</Button>
+      <Button onClick={onStart}>Start</Button>
     </>
   );
 };
 
-export default Action;
+Action.propTypes = {
+  level: PropTypes.oneOf([...Levels.map(item => item.id), undefined]),
+  onLevelChange: PropTypes.func,
+  onStart: PropTypes.func
+};
+
+Action.defaultProps = {
+  level: undefined,
+  onLevelChange: null,
+  onStart: null
+};
+
+export default memo(Action);
 
 const CustomSelect = styled(Select)`
   width: 120px;

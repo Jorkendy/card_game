@@ -16,18 +16,23 @@ const Content = ({ matrix, size, onToggleFlip }) => {
   return matrix.length > 0 ? (
     <Row gutter={[15, 15]}>
       {matrix.map((item, index) => (
-        <Col key={index} span={24 / size}>
-          <FlipCard
-            cardContainerStyle={{
-              color: "white",
-              padding: "10px"
-            }}
-            flipped={item.isFlip}
-            onCardClick={_onCardClick(item.id)}
-            backContent={<Card>{item.name}</Card>}
-            frontContent={<Card />}
-            height="100px"
-          />
+        <Col key={index} xs={24 / size}>
+          {item.isFlip && item.isOpen ? (
+            <Card />
+          ) : (
+            <FlipCard
+              cardContainerStyle={{
+                color: "white",
+                padding: "10px"
+              }}
+              flipped={item.isFlip}
+              onCardClick={_onCardClick(item.id)}
+              backContent={<Card>{item.name}</Card>}
+              frontContent={<Card />}
+              height="100px"
+              width="100%"
+            />
+          )}
         </Col>
       ))}
     </Row>
@@ -52,5 +57,5 @@ const Card = styled(Col)`
   font-size: 32px;
   justify-content: center;
   align-items: center;
-  border: 1px solid #000;
+  /* border: 1px solid #000; */
 `;

@@ -13,7 +13,7 @@ export const Levels = [
   },
   {
     id: 3,
-    name: "Easy",
+    name: "Hard",
     size: 6,
     time: 120
   }

@@ -2,11 +2,13 @@ import React from "react";
 import { Icon } from "antd";
 import styled from "styled-components";
 
-const Timer = () => {
+import { parseSecondsToTime } from "../utils";
+
+const Timer = ({ time }) => {
   return (
     <>
       <CustomIcon type="clock-circle" />
-      Time remaining: 01:06
+      Time remaining: {parseSecondsToTime(time)}
     </>
   );
 };

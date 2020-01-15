@@ -7,14 +7,14 @@ import { Levels } from "../utils";
 
 const { Option } = Select;
 
-const Action = ({ level, onLevelChange, onStart }) => {
+const Action = ({ level, onSetLevel, onStart }) => {
   return (
     <>
       <CustomSelect
         value={level}
         style={{ width: 120 }}
         placeholder="Select level"
-        onChange={onLevelChange}
+        onChange={onSetLevel}
       >
         {Levels.map(item => (
           <Option value={item.id} key={item.id}>

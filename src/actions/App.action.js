@@ -3,7 +3,11 @@ import { generateMatrix } from "../utils";
 export const AppType = {
   Start: "Start game",
   ToggleFlip: "Toggle flip",
-  Open: "Open"
+  Open: "Open",
+  Reset: "Reset",
+  IncreaseWin: "Increase win",
+  IncreaseLose: "Increase lose",
+  SetLevel: "Set level"
 };
 
 const startGame = data => ({ type: AppType.Start, data });
@@ -11,6 +15,14 @@ const startGame = data => ({ type: AppType.Start, data });
 const toggleFlip = id => ({ type: AppType.ToggleFlip, id });
 
 const open = openedArray => ({ type: AppType.Open, openedArray });
+
+const reset = () => ({ type: AppType.Reset });
+
+const increaseWin = time => ({ type: AppType.IncreaseWin, time });
+
+const increaseLose = time => ({ type: AppType.IncreaseLose, time });
+
+const setLevel = level => ({ type: AppType.SetLevel, level });
 
 export const onStart = size => {
   return dispatch => {
@@ -35,17 +47,38 @@ export const onToggleFlip = (id, callback) => {
     );
     if (flipedItem.length === 2) {
       setTimeout(() => {
-        callback &&
-          callback({
-            isMatched: flipedItem[0].name === flipedItem[1].name
-          });
         if (flipedItem[0].name !== flipedItem[1].name) {
           dispatch(toggleFlip(flipedItem[0].id));
           dispatch(toggleFlip(flipedItem[1].id));
         } else {
           dispatch(open(flipedItem.map(item => item.id)));
         }
+        callback && callback();
       }, 2000);
-    } 
+    }
   };
 };
+
+export const onReset = () => {
+  return dispatch => {
+    dispatch(reset());
+  };
+};
+
+export const onIncreaseWin = () => {
+  return (dispatch, getState) => {
+    dispatch(increaseWin(getState().Timer.time));
+  };
+};
+
+export const onIncreaseLose = () => {
+  return (dispatch, getState) => {
+    dispatch(increaseLose(getState().Timer.lose));
+  };
+};
+
+export const onSetLevel = level => {
+  return (dispatch) => {
+    dispatch(setLevel(level));
+  };
+}
